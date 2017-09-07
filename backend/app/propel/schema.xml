@@ -1,0 +1,54 @@
+<database name="default" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="WEB"
+>
+    <table name="USUARIO" phpName="Usuario">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        
+        <column name="nome" type="varchar" size="255" required="true"/>
+        <column name="email" type="varchar" size="255" required="true"/>
+        <column name="telefone" type="varchar" size="20" required="true"/>
+        <column name="usario" type="varchar" size="255" required="true"/>
+        <column name="senha" type="LONGVARCHAR" required="true"/>
+        <column name="isAdmin" type="boolean" required="true"/>
+        
+    </table>
+
+    <table name="PEDIDO_SUPORTE" phpName="PedidoSuporte">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+       
+        <column name="tipo" type="enum" valueSet="Problema, Tarefa, Novo" required="true"/>
+        <column name="area" type="enum" valueSet="Vendas, Desenvolvimento, Marketing, Infraestrutura" required="true"/>
+        <column name="status" type="enum" valueSet="Enviada, Andamento, Finalizada" required="true"/>
+        <column name="titulo" type="varchar" size="255" required="true"/>
+        <column name="descricao" type="LONGVARCHAR" required="false"/>
+        
+        <column name="idUsuario_Criador" type="integer" required="true"/>
+        <column name="idUsuario_Executor" type="integer" required="false"/>
+        <foreign-key foreignTable="USUARIO" name="fk_usuario_c_ped">
+            <reference local="idUsuario_Criador" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="USUARIO" name="fk_usuario_e_ped">
+            <reference local="idUsuario_Executor" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="MENSAGENS" phpName="Mensagens">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        
+        <column name="mensagem" type="LONGVARCHAR" required="true"/>
+        <column name="img" type="varchar" size="255" required="false'"/>
+
+        
+        <column name="idUsuario_Criador" type="integer" required="true"/>
+        <column name="idPedidoSuporte" type="integer" required="true"/>
+        <foreign-key foreignTable="USUARIO" name="fk_usuario_c_men">
+            <reference local="idUsuario_Criador" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="PEDIDO_SUPORTE" name="fk_pedido_sup">
+            <reference local="idPedidoSuporte" foreign="id"/>
+        </foreign-key>
+    </table>
+
+</database>
