@@ -1,0 +1,18 @@
+## Sample Propel configuration file ##
+
+propel:
+## General settings ##
+  general:
+      # The name of your project.
+      # This affects names of generated files, etc.
+      project:
+      version: 2.0.0-dev
+
+  ### Directories and Filenames ###
+  paths:
+      # The directory where Propel expects to find your `schema.xml` file.
+      schemaDir: %kernel.root_dir%/app/propel
+
+      # The directory where Propel should output classes, sql, config, etc.
+      # Default value is current path #
+      outputDir: %kernel.root_dir%/src/classes/propel/WEB
